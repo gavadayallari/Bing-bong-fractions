@@ -87,13 +87,11 @@ export default function FractionBingo({ isPlaying, onWin }: FractionBingoProps) 
   const [bingo, setBingo] = useState(false);
   const [shakeIndex, setShakeIndex] = useState<number | null>(null);
   const [wrongIndices, setWrongIndices] = useState<number[]>([]);
-  const [bingoMessage, setBingoMessage] = useState("Select a level to begin.");
   const [boardFractions, setBoardFractions] = useState(
     () => shuffleFractions(LEVELS[1].fractions)
   );
   const [currentFoodImage, setCurrentFoodImage] = useState<number>(1);
   const [cellFoodImages, setCellFoodImages] = useState<{ [key: number]: number }>({});
-  const [wrongAttempts, setWrongAttempts] = useState<number>(0);
 
   // Reset when component key changes (handled by parent via key prop)
   // Only start when isPlaying becomes true AND game state is fresh
@@ -115,12 +113,10 @@ export default function FractionBingo({ isPlaying, onWin }: FractionBingoProps) 
     setShakeIndex(null);
     setWrongIndices([]); // Reset wrong indices
     setCellFoodImages({}); // Reset food images for cells
-    setWrongAttempts(0); // Reset wrong attempts counter
     // Set initial random food image
     const randomFood = Math.floor(Math.random() * 10) + 1;
     setCurrentFoodImage(randomFood);
     pickNewTarget(fresh);
-    setBingoMessage(`${LEVELS[lvl].name} – Match the yellow point.`);
   }
 
   function pickNewTarget(marks: boolean[]) {
@@ -130,7 +126,6 @@ export default function FractionBingo({ isPlaying, onWin }: FractionBingoProps) 
     }
     if (available.length === 0) {
       setCurrentTargetIndex(null);
-      setBingoMessage("All squares used. Pick another level.");
       return;
     }
     const idx = available[Math.floor(Math.random() * available.length)];
@@ -199,9 +194,6 @@ export default function FractionBingo({ isPlaying, onWin }: FractionBingoProps) 
     const isCorrect = chosen.n === target.n && chosen.d === target.d;
 
     if (isCorrect) {
-      // Reset wrong attempts counter on correct answer
-      setWrongAttempts(0);
-      
       // Clear wrong indicators when correct answer is selected
       setShakeIndex(null);
       setWrongIndices([]);
@@ -219,7 +211,6 @@ export default function FractionBingo({ isPlaying, onWin }: FractionBingoProps) 
 
         if (checkBingo(updated)) {
           setBingo(true);
-          setBingoMessage("🎉 BINGO! Line completed.");
           setCurrentTargetIndex(null);
           // Trigger win after a short delay
           setTimeout(() => {
@@ -227,7 +218,6 @@ export default function FractionBingo({ isPlaying, onWin }: FractionBingoProps) 
           }, 1000);
         } else {
           // Immediately move to the next point without extra message or button.
-          setBingoMessage(`${LEVELS[bingoLevel].name} – Match the yellow point.`);
           pickNewTarget(updated);
         }
         return updated;
@@ -247,16 +237,6 @@ export default function FractionBingo({ isPlaying, onWin }: FractionBingoProps) 
         return newIndices;
       });
       
-      // Increment wrong attempts counter
-      setWrongAttempts(prev => {
-        const newCount = prev + 1;
-        if (newCount >= 3) {
-          return 0; // Reset counter
-        }
-        return newCount;
-      });
-      
-      setBingoMessage("Not that one. Try again.");
       setShakeIndex(idx);
       // Keep wrong indicators visible until correct answer
     }
