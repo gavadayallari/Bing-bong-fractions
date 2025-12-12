@@ -1610,6 +1610,191 @@ body,
   }
 }
 
+/* Media query for 400px to 428px screens */
+@media (min-width: 400px) and (max-width: 428px) {
+  /* BIN, BING, BINGO text - adjust left position */
+  .countdown-container {
+    left: 64.5% !important;
+    transform: translateX(-50%) !important;
+  }
+  
+  /* BIN, BING, BINGO text size - reduce */
+  .countdown-container > div:first-child {
+    font-size: 1.125rem !important;
+  }
+  
+  /* Bingo cell sizes - slightly smaller than 400-499px */
+  .bingo-cell {
+    width: 63px;
+    height: 63px;
+  }
+  
+  /* Number line container - adjust positioning */
+  .number-line-container {
+    margin-top: 12cqh !important;
+    margin-bottom: -10px !important;
+    margin-left: -0.75rem !important;
+  }
+  
+  /* Number line ticks */
+  .tick-responsive {
+    top: -49px;
+    width: 1.5px;
+    height: 16px;
+  }
+  
+  /* Pointer tick */
+  .pointer-tick-responsive {
+    top: -49px;
+    width: 3.9px;
+    height: 18px;
+  }
+  
+  /* Main container - column layout */
+  .fraction-bingo-container {
+    padding: 0.5rem 0.5rem !important;
+    gap: 0.25rem !important;
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+  
+  /* Level buttons container - move below grid */
+  .fraction-bingo-container > div:first-child {
+    order: 2 !important;
+    margin-left: 0 !important;
+    margin-top: 2rem !important;
+    gap: 0.25rem !important;
+    padding-left: 0 !important;
+    padding-top: 1rem !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    position: relative !important;
+  }
+  
+  /* Main game area - order first */
+  .fraction-bingo-container > div.flex-1 {
+    order: 1 !important;
+  }
+  
+  /* Level button sizes - slightly smaller */
+  .fraction-bingo-container > div:first-child button {
+    width: 4.5rem !important;
+    height: 4.5rem !important;
+    min-width: 3.5rem !important;
+    min-height: 3.5rem !important;
+    margin-left: -6rem !important;
+    margin-right: 0 !important;
+  }
+  
+  /* Level 1 and Level 3 buttons - same line (top) */
+  .fraction-bingo-container > div:first-child button:nth-child(1),
+  .fraction-bingo-container > div:first-child button:nth-child(3) {
+    position: absolute !important;
+    margin-top: 0 !important;
+  }
+  
+  /* Level 1 button - left side */
+  .fraction-bingo-container > div:first-child button:nth-child(1) {
+    left: 0 !important;
+  }
+  
+  /* Level 3 button - right side */
+  .fraction-bingo-container > div:first-child button:nth-child(3) {
+    right: -6rem !important;
+  }
+  
+  /* Level 2 button - middle position, below level 1 and 3 */
+  .fraction-bingo-container > div:first-child button:nth-child(2) {
+    position: relative !important;
+    margin-top: -0.5rem !important;
+    margin-left: 0 !important;
+  }
+  
+  /* Grid container - reduce gaps */
+  .fraction-bingo-container .grid.grid-cols-5 {
+    gap: 0.375rem !important;
+    margin-top: 5px !important;
+    margin-left: -0.5rem !important;
+  }
+  
+  /* Grid wrapper - adjust margin */
+  .bingo-grid-wrapper {
+    margin-top: -20px !important;
+  }
+  
+  /* Right side text positioning - below counter */
+  .bingo-right-text {
+    position: absolute !important;
+    top: 105px !important;
+    left: 54% !important;
+    transform: translateX(-50%) !important;
+    margin-top: 0 !important;
+    margin-right: 0 !important;
+    width: auto !important;
+  }
+  
+  /* Food images - medium size */
+  .fraction-bingo-container img[alt^="Food"] {
+    width: 1.875rem !important;
+    height: 1.875rem !important;
+  }
+  
+  /* Food images in cells */
+  .bingo-cell img[alt^="Food"] {
+    width: 1.875rem !important;
+    height: 1.875rem !important;
+  }
+  
+  /* Fraction text sizes in cells */
+  .bingo-cell > div.text-center {
+    font-size: 0.6rem !important;
+  }
+  
+  /* Number line labels - adjust position with top gap */
+  .number-line-container span {
+    top: -35px !important;
+    margin-top: 0.5rem !important;
+  }
+  
+  /* Food image on number line - adjust position with top gap */
+  .food-image-on-line {
+    top: -40px !important;
+    margin-top: 1rem !important;
+  }
+  
+  /* Level button images */
+  .fraction-bingo-container > div:first-child button img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+  }
+  
+  /* Level button spacing between levels */
+  .fraction-bingo-container > div:first-child button:not(:first-child) {
+    margin-top: -0.5rem !important;
+  }
+  
+  /* Level button hover and active states */
+  .fraction-bingo-container > div:first-child button:hover:not(:disabled) {
+    transform: scale(1.05) !important;
+  }
+  
+  .fraction-bingo-container > div:first-child button:active:not(:disabled) {
+    transform: scale(1.02) !important;
+  }
+  
+  /* Level button disabled state */
+  .fraction-bingo-container > div:first-child button:disabled {
+    opacity: 0.5 !important;
+    cursor: not-allowed !important;
+  }
+  
+  /* Level button active/selected state */
+  .fraction-bingo-container > div:first-child button[class*="scale-105"] {
+    transform: scale(1.05) !important;
+  }
+}
+
 /* Media query for 260px to 300px screens */
 @media (min-width: 260px) and (max-width: 300px) {
   /* BIN, BING, BINGO text - adjust left position */
