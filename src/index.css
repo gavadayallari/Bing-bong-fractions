@@ -2455,7 +2455,7 @@ body,
   :-webkit-full-screen .countdown-container {
     position: fixed !important;
     top: 0.4rem !important;
-    left: 50% !important;
+    left: 70% !important;
     transform: translateX(-50%) !important;
     z-index: 9999;
     text-align: center;
