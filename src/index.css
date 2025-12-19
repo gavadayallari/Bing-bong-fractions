@@ -2438,6 +2438,7 @@ body,
     justify-content: center !important;
     gap: -0.15rem !important;
     padding: 0.5rem !important;
+    margin-top: 5rem !important;
   }
 
   /* -------- Bingo grid -------- */
