@@ -399,7 +399,6 @@ const GamePreview = forwardRef<
         resetGame={handleResetGame}
         showRestartButton={config?.showRestartButton ?? true}
         gameState={gameState}
-        setGameState={setGameState}
         togglePause={togglePause}
         toggleMute={toggleMute}
         toggleFullscreen={toggleFullscreen}

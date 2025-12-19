@@ -7,7 +7,6 @@ import {
   RotateCcw,
   VolumeX,
 } from "lucide-react";
-import type { Dispatch, SetStateAction } from "react";
 
 type PreviewSidebarProps = {
   gameState: GameStateType;
@@ -16,7 +15,6 @@ type PreviewSidebarProps = {
   togglePause: () => void;
   toggleMute: () => void;
   toggleFullscreen: () => void;
-  setGameState: Dispatch<SetStateAction<GameStateType>>;
 };
 
 function PreviewSidebar({
@@ -26,7 +24,6 @@ function PreviewSidebar({
   togglePause,
   toggleMute,
   toggleFullscreen,
-  setGameState,
 }: PreviewSidebarProps) {
   const { isMuted, isPlaying, hasWon } = gameState;
 
