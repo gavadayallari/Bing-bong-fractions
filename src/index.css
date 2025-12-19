@@ -2450,6 +2450,7 @@ body,
     align-items: center;
     justify-content: center;
     margin-bottom: 1rem !important;
+    margin-top: -2.5rem !important;
   }
 
   /* -------- Countdown / Title -------- */
