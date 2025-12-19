@@ -2438,7 +2438,7 @@ body,
     justify-content: center !important;
     gap: -0.10rem !important;
     padding: 0.5rem !important;
-    margin-top: -1.8rem !important;
+    margin-top: -1.5rem !important;
   }
 
   /* -------- Bingo grid -------- */
@@ -2464,7 +2464,7 @@ body,
   /* -------- Individual bingo cells -------- */
   :fullscreen .bingo-cell,
   :-webkit-full-screen .bingo-cell {
-    width: 50px !important; /* Even smaller cell size for mobile landscape */
+    width: 40px !important; /* Even smaller cell size for mobile landscape */
     height: 50px !important; /* Even smaller cell size for mobile landscape */
     font-size: 0.65rem !important; /* Smaller font */
     padding: 0.2rem !important;
