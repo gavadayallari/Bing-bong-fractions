@@ -309,17 +309,24 @@ const GamePreview = forwardRef<
     setGameState((prev) => ({ ...prev, isMuted: !prev.isMuted }));
   };
 
-  const toggleFullscreen = () => {
-    if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen().catch((err) => {
-        console.log(`Error attempting to enable fullscreen: ${err.message}`);
-      });
-    } else {
-      document.exitFullscreen().catch((err) => {
-        console.log(`Error attempting to exit fullscreen: ${err.message}`);
-      });
-    }
-  };
+const toggleFullscreen = () => {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen().then(() => {
+      // Mobile users ko rotate hint
+      if (window.innerWidth < 768) {
+        setTimeout(() => {
+          alert("Rotate your phone for best experience 📱↔️");
+        }, 300);
+      }
+    }).catch((err) => {
+      console.log(`Error attempting to enable fullscreen: ${err.message}`);
+    });
+  } else {
+    document.exitFullscreen().catch((err) => {
+      console.log(`Error attempting to exit fullscreen: ${err.message}`);
+    });
+  }
+};
 
   const handleWin = () => {
     setFreezeTimer(true);

@@ -2394,22 +2394,25 @@ body,
 
 /* =====================================================
    MOBILE LANDSCAPE FULLSCREEN MODE
-   Works ONLY after toggleFullscreen()
+   Active ONLY when fullscreen + landscape
 ===================================================== */
 
-/* Mobile devices only */
-@media screen and (max-width: 1024px) and (orientation: landscape) {
-  html:fullscreen,
-  body:fullscreen,
-  #root:fullscreen,
-  .game-preview-container:fullscreen {
+@media (max-width: 1024px) and (orientation: landscape) {
+  :fullscreen {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  /* Game container */
+  :fullscreen .game-preview-container {
     width: 100vw;
     height: 100vh;
     overflow: hidden;
   }
 
   /* Main game wrapper */
-  .fraction-bingo-container {
+  :fullscreen .fraction-bingo-container {
     flex-direction: row !important;
     align-items: center !important;
     justify-content: center !important;
@@ -2417,14 +2420,14 @@ body,
     gap: 0.5rem !important;
   }
 
-  /* Grid area becomes dominant */
-  .bingo-grid-wrapper {
+  /* Grid area */
+  :fullscreen .bingo-grid-wrapper {
     margin-top: 0 !important;
     transform: scale(0.95);
   }
 
-  /* Level buttons move to left */
-  .fraction-bingo-container > div:first-child {
+  /* Level buttons on left */
+  :fullscreen .fraction-bingo-container > div:first-child {
     position: relative !important;
     margin: 0 !important;
     padding: 0.5rem !important;
@@ -2432,8 +2435,8 @@ body,
     align-items: center !important;
   }
 
-  /* Right text moves to top-right */
-  .bingo-right-text {
+  /* Right-side text */
+  :fullscreen .bingo-right-text {
     position: absolute !important;
     top: 0.5rem !important;
     right: 0.5rem !important;
@@ -2441,15 +2444,11 @@ body,
     transform: none !important;
   }
 
-  /* Countdown stays visible */
-  .countdown-container {
+  /* Countdown */
+  :fullscreen .countdown-container {
     top: 0.5rem !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
   }
 }
 
-/* Hide fullscreen button AFTER entering fullscreen */
-:fullscreen .fullscreen-btn {
-  display: none;
-}
