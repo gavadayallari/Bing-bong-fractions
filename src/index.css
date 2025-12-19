@@ -2454,16 +2454,12 @@ body,
   /* -------- Countdown / Title -------- */
   :fullscreen .countdown-container,
   :-webkit-full-screen .countdown-container {
-      position: fixed !important;
-  top: 0.6rem !important;
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-  z-index: 10000 !important;
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
-  pointer-events: none !important;
+    position: fixed !important;
+    top: 0.4rem !important;
+    left: 65% !important;
+    transform: translateX(-50%) !important;
+    z-index: 9999;
+    text-align: center;
   }
 
   /* -------- Right instruction text -------- */
