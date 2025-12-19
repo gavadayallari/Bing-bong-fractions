@@ -2445,7 +2445,7 @@ body,
   :fullscreen .bingo-grid-wrapper,
   :-webkit-full-screen .bingo-grid-wrapper {
     margin: 0 !important;
-    transform: scale(0.85) !important; /* Reduced from 0.9 to 0.75 */
+    transform: scale(0.9) !important; /* Reduced from 0.9 to 0.75 */
     display: flex;
     align-items: center;
     justify-content: center;
