@@ -2466,7 +2466,7 @@ body,
   /* Timer */
   :fullscreen .countdown-container .timer,
   :-webkit-full-screen .countdown-container .timer {
-  margin-top: 0.25rem !important;
+  margin-top: 0.55rem !important;
   }
 
   /* -------- Right instruction text -------- */
