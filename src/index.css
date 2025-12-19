@@ -2461,7 +2461,12 @@ body,
     transform: translateX(-50%) !important;
     z-index: 9999;
     text-align: center;
-    gap: 0.5rem !important;
+  }
+
+  /* Timer */
+  :fullscreen .countdown-container .timer,
+  :-webkit-full-screen .countdown-container .timer {
+  margin-top: 0.25rem !important;
   }
 
   /* -------- Right instruction text -------- */
