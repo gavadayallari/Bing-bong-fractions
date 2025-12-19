@@ -2448,6 +2448,7 @@ body,
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-bottom: 1rem !important;
   }
 
   /* -------- Countdown / Title -------- */
@@ -2455,7 +2456,7 @@ body,
   :-webkit-full-screen .countdown-container {
     position: fixed !important;
     top: 0.4rem !important;
-    left: 60% !important;
+    left: 65% !important;
     transform: translateX(-50%) !important;
     z-index: 9999;
     text-align: center;
