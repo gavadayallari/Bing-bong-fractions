@@ -13,13 +13,13 @@ const LEVELS = {
       // ROW 1
       { n: 1, d: 5 }, { n: 1, d: 5 }, { n: 3, d: 4 }, { n: 4, d: 5 }, { n: 1, d: 6 },
       // ROW 2
-      { n: 1, d: 5 }, { n: 2, d: 5 }, { n: 1, d: 6 }, { n: 1, d: 3 }, { n: 5, d: 6 },
+      { n: 3, d: 5 }, { n: 2, d: 5 }, { n: 1, d: 6 }, { n: 1, d: 3 }, { n: 5, d: 6 },
       // ROW 3
-      { n: 1, d: 4 }, { n: 5, d: 6 }, { n: 1, d: 5 }, { n: 4, d: 5 }, { n: 1, d: 3 },
+      { n: 1, d: 4 }, { n: 5, d: 6 }, { n: 2, d: 5 }, { n: 2, d: 5 }, { n: 2, d: 3 },
       // ROW 4
-      { n: 4, d: 5 }, { n: 2, d: 5 }, { n: 1, d: 6 }, { n: 1, d: 5 }, { n: 1, d: 4 },
+      { n: 4, d: 5 }, { n: 1, d: 3 }, { n: 1, d: 2 }, { n: 3, d: 4 }, { n: 1, d: 4 },
       // ROW 5
-      { n: 1, d: 3 }, { n: 3, d: 4 }, { n: 1, d: 2 }, { n: 2, d: 3 }, { n: 1, d: 2 },
+      { n: 1, d: 4 }, { n: 3, d: 5 }, { n: 1, d: 2 }, { n: 3, d: 5 }, { n: 2, d: 3 },
     ],
   },
 
@@ -29,13 +29,13 @@ const LEVELS = {
       // ROW 1
       { n: 1, d: 4 }, { n: 1, d: 12 }, { n: 3, d: 8 }, { n: 2, d: 3 }, { n: 1, d: 4 },
       // ROW 2
-      { n: 5, d: 8 }, { n: 3, d: 4 }, { n: 1, d: 3 }, { n: 1, d: 6 }, { n: 1, d: 4 },
+      { n: 5, d: 8 }, { n: 3, d: 4 }, { n: 1, d: 3 }, { n: 1, d: 6 }, { n: 3, d: 8 },
       // ROW 3
       { n: 4, d: 5 }, { n: 2, d: 3 }, { n: 7, d: 12 }, { n: 1, d: 10 }, { n: 1, d: 10 },
       // ROW 4
-      { n: 5, d: 8 }, { n: 3, d: 5 }, { n: 7, d: 12 }, { n: 5, d: 8 }, { n: 1, d: 10 },
+      { n: 5, d: 8 }, { n: 3, d: 5 }, { n: 7, d: 12 }, { n: 1, d: 8 }, { n: 3, d: 10 },
       // ROW 5
-      { n: 1, d: 12 }, { n: 11, d: 12 }, { n: 2, d: 3 }, { n: 1, d: 12 }, { n: 3, d: 4 },
+      { n: 1, d: 12 }, { n: 11, d: 12 }, { n: 1, d: 2 }, { n: 5, d: 12 }, { n: 3, d: 4 },
     ],
   },
 
@@ -47,11 +47,11 @@ const LEVELS = {
       // ROW 2
       { n: 6, d: 8 }, { n: 2, d: 10 }, { n: 2, d: 6 }, { n: 9, d: 12 }, { n: 8, d: 10 },
       // ROW 3
-      { n: 2, d: 4 }, { n: 8, d: 12 }, { n: 3, d: 9 }, { n: 3, d: 9 }, { n: 3, d: 9 },
+      { n: 2, d: 4 }, { n: 8, d: 12 }, { n: 3, d: 9 }, { n: 3, d: 9 }, { n: 1, d: 3 },
       // ROW 4
-      { n: 4, d: 10 }, { n: 3, d: 12 }, { n: 2, d: 12 }, { n: 8, d: 12 }, { n: 8, d: 12 },
+      { n: 4, d: 10 }, { n: 3, d: 12 }, { n: 2, d: 12 }, { n: 8, d: 12 }, { n: 7, d: 12 },
       // ROW 5
-      { n: 2, d: 4 }, { n: 8, d: 12 }, { n: 10, d: 12 }, { n: 6, d: 9 }, { n: 3, d: 12 },
+      { n: 2, d: 4 }, { n: 5, d: 12 }, { n: 10, d: 12 }, { n: 6, d: 9 }, { n: 3, d: 12 },
     ],
   },
 };
@@ -459,7 +459,7 @@ export default function FractionBingo({ isPlaying, onWin }: FractionBingoProps) 
         {/* Right side message - outside grid box */}
         <div className="flex justify-end items-center mt-[-150px] sm:mt-[-200px] md:mt-[-250px] lg:mt-[-300px] mr-[-40px] sm:mr-[-60px] md:mr-[-80px] lg:mr-[-100px] bingo-right-text">
           <p className="text-white text-sm sm:text-base md:text-lg lg:text-xl font-semibold italic" style={{ fontFamily: 'serif' }}>
-            "what's that fraction"
+            {/* "what's that fraction" */}
           </p>
         </div>
 

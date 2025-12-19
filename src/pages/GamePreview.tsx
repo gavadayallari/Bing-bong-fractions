@@ -309,6 +309,18 @@ const GamePreview = forwardRef<
     setGameState((prev) => ({ ...prev, isMuted: !prev.isMuted }));
   };
 
+  const toggleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch((err) => {
+        console.log(`Error attempting to enable fullscreen: ${err.message}`);
+      });
+    } else {
+      document.exitFullscreen().catch((err) => {
+        console.log(`Error attempting to exit fullscreen: ${err.message}`);
+      });
+    }
+  };
+
   const handleWin = () => {
     setFreezeTimer(true);
     if (
@@ -390,6 +402,7 @@ const GamePreview = forwardRef<
         setGameState={setGameState}
         togglePause={togglePause}
         toggleMute={toggleMute}
+        toggleFullscreen={toggleFullscreen}
       />
       <ReplayScreen
         type={gameState.hasWon ? "win" : gameState.hasTimeUp ? "timeUp" : ""}
