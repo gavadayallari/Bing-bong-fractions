@@ -2397,29 +2397,35 @@ body,
 ===================================================== */
 
 @media (max-width: 1024px) and (orientation: landscape) {
-  :fullscreen {
+
+  :fullscreen,
+  :-webkit-full-screen {
     width: 100vw;
     height: 100vh;
     overflow: hidden;
   }
 
-  :fullscreen .game-preview-container {
+  :fullscreen .game-preview-container,
+  :-webkit-full-screen .game-preview-container {
     width: 100vw;
     height: 100vh;
   }
 
-  :fullscreen .fraction-bingo-container {
+  :fullscreen .fraction-bingo-container,
+  :-webkit-full-screen .fraction-bingo-container {
     flex-direction: row !important;
     align-items: center !important;
     justify-content: center !important;
   }
 
-  :fullscreen .bingo-grid-wrapper {
+  :fullscreen .bingo-grid-wrapper,
+  :-webkit-full-screen .bingo-grid-wrapper {
     transform: scale(0.95);
     margin-top: 0 !important;
   }
 
-  :fullscreen .countdown-container {
+  :fullscreen .countdown-container,
+  :-webkit-full-screen .countdown-container {
     top: 0.5rem !important;
     left: 50% !important;
     transform: translateX(-50%) !important;

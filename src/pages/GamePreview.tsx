@@ -11,6 +11,7 @@ import TapToStart from "@/components/TapToStart";
 import ReplayScreen from "@/components/ReplayScreen";
 import HintGuide from "@/components/HintGuide";
 import FractionBingo from "@/components/FractionBingo";
+import { handleFullscreenToggle } from "@/utils/handleFullscreenToggle";
 
 const GamePreview = forwardRef<
   RefType,
@@ -393,13 +394,14 @@ const toggleFullscreen = () => {
         />
       </div>
       <PreviewSidebar
-        resetGame={handleResetGame}
-        showRestartButton={config?.showRestartButton ?? true}
-        gameState={gameState}
-        togglePause={togglePause}
-        toggleMute={toggleMute}
-        toggleFullscreen={toggleFullscreen}
+      resetGame={handleResetGame}
+      showRestartButton={config?.showRestartButton ?? true}
+      gameState={gameState}
+      togglePause={togglePause}
+      toggleMute={toggleMute}
+      toggleFullscreen={() => handleFullscreenToggle(gameGridRef.current ?? undefined)}
       />
+
       <ReplayScreen
         type={gameState.hasWon ? "win" : gameState.hasTimeUp ? "timeUp" : ""}
         handleResetGame={handleResetGame}

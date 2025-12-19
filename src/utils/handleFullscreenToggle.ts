@@ -1,11 +1,15 @@
+export async function handleFullscreenToggle(target?: HTMLElement) {
+  if (typeof document === "undefined") return;
 
+  const element = target ?? document.documentElement;
 
-export function handleFullscreenToggle() {
-  const elem = document.documentElement;
-
-  if (!document.fullscreenElement) {
-    elem.requestFullscreen().catch(() => {});
-  } else {
-    document.exitFullscreen();
+  try {
+    if (!document.fullscreenElement) {
+      await element.requestFullscreen();
+    } else {
+      await document.exitFullscreen();
+    }
+  } catch {
+    // silently fail
   }
 }
