@@ -2399,167 +2399,100 @@ body,
 
 @media screen and (max-width: 1024px) and (orientation: landscape) {
 
-  /* ---------------- FULLSCREEN ROOT ---------------- */
+  /* -------- Fullscreen base -------- */
   :fullscreen,
   :-webkit-full-screen {
     width: 100vw;
     height: 100vh;
     overflow: hidden;
-    background: #000;
+    background: black;
   }
 
   :fullscreen body,
   :-webkit-full-screen body {
-    margin: 0 !important;
-    padding: 0 !important;
-    overflow: hidden !important;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
   }
 
-  /* ---------------- GAME CONTAINER ---------------- */
+  /* -------- Game root -------- */
   :fullscreen .game-preview-container,
   :-webkit-full-screen .game-preview-container {
     width: 100vw;
     height: 100vh;
     padding-top: 0 !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    background-size: cover !important;
-    position: relative !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
   }
 
-  /* ---------------- HEADER: TITLE + TIMER + NUMBER LINE ---------------- */
-  :fullscreen .countdown-container,
-  :-webkit-full-screen .countdown-container {
-    position: fixed !important;
-    top: 0.6rem !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-    z-index: 10000 !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    pointer-events: none !important;
-  }
-
-  /* Title */
-  :fullscreen .countdown-container > div:first-child,
-  :-webkit-full-screen .countdown-container > div:first-child {
-    font-family: "Luckiest Guy", cursive !important;
-    font-size: 1.4rem !important;
-    letter-spacing: 0.15em !important;
-    color: #fff !important;
-    margin-bottom: 0.25rem !important;
-    text-align: center !important;
-  }
-
-  /* Timer */
-  :fullscreen .countdown-container .timer,
-  :-webkit-full-screen .countdown-container .timer {
-    font-size: 0.95rem !important;
-    font-weight: 700 !important;
-    color: #fff !important;
-    margin-bottom: 0.4rem !important;
-    display: flex !important;
-    align-items: center !important;
-    gap: 0.35rem !important;
-  }
-
-  /* Number line container */
-  :fullscreen .number-line-container,
-  :-webkit-full-screen .number-line-container {
-    width: min(90vw, 520px) !important;
-    margin-bottom: 0.8rem !important;
-    position: relative !important;
-  }
-
-  /* Number line */
-  :fullscreen .number-line-container > div:first-child,
-  :-webkit-full-screen .number-line-container > div:first-child {
-    height: 2px !important;
-    background: #fff !important;
-    border-radius: 2px;
-  }
-
-  /* Ticks */
-  :fullscreen .tick,
-  :-webkit-full-screen .tick {
-    top: -10px !important;
-    height: 16px !important;
-    background: #fff !important;
-  }
-
-  /* Pointer */
-  :fullscreen .pointer-tick,
-  :-webkit-full-screen .pointer-tick {
-    top: -14px !important;
-    height: 22px !important;
-    background: #ff7a00 !important;
-  }
-
-  /* Food on number line */
-  :fullscreen .food-image-on-line,
-  :-webkit-full-screen .food-image-on-line {
-    top: -38px !important;
-    width: 32px !important;
-    height: 32px !important;
-  }
-
-  /* Labels 0 – 1 */
-  :fullscreen .number-line-container span,
-  :-webkit-full-screen .number-line-container span {
-    top: 14px !important;
-    font-size: 0.75rem !important;
-    color: #fff !important;
-  }
-
-  /* ---------------- MAIN GAME LAYOUT ---------------- */
+  /* -------- Main game layout -------- */
   :fullscreen .fraction-bingo-container,
   :-webkit-full-screen .fraction-bingo-container {
-    width: 100% !important;
-    height: 100% !important;
+    width: 100%;
+    height: 100%;
     display: flex !important;
     flex-direction: row !important;
     align-items: center !important;
     justify-content: center !important;
     gap: 0.75rem !important;
-    padding-top: 5.5rem !important; /* space for header */
+    padding: 0.5rem !important;
   }
 
-  /* Grid */
+  /* -------- Bingo grid -------- */
   :fullscreen .bingo-grid-wrapper,
   :-webkit-full-screen .bingo-grid-wrapper {
-    transform: scale(0.9) !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
+    margin: 0 !important;
+    transform: scale(0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem !important;
   }
 
-  /* Left level buttons */
-  :fullscreen .fraction-bingo-container > div:first-child,
-  :-webkit-full-screen .fraction-bingo-container > div:first-child {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 0.3rem !important;
+  /* -------- Countdown / Title -------- */
+  :fullscreen .countdown-container,
+  :-webkit-full-screen .countdown-container {
+      position: fixed !important;
+  top: 0.6rem !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  z-index: 10000 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  pointer-events: none !important;
   }
 
-  /* Right instruction text */
+  /* -------- Right instruction text -------- */
   :fullscreen .bingo-right-text,
   :-webkit-full-screen .bingo-right-text {
     position: absolute !important;
     right: 0.75rem !important;
     top: 50% !important;
     transform: translateY(-50%) !important;
-    color: #fff !important;
-    text-align: center !important;
+    width: auto;
+    text-align: center;
   }
 
-  /* ---------------- SAFETY ---------------- */
+  /* -------- Level buttons -------- */
+  :fullscreen .fraction-bingo-container > div:first-child,
+  :-webkit-full-screen .fraction-bingo-container > div:first-child {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.25rem !important;
+    margin: 0 !important;
+  }
+
+  /* -------- Prevent accidental scrolling -------- */
   * {
-    overscroll-behavior: none !important;
-    -webkit-overflow-scrolling: auto !important;
+    overscroll-behavior: none;
+    -webkit-overflow-scrolling: auto;
   }
 }
-
 
 
