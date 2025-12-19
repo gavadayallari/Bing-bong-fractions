@@ -310,15 +310,6 @@ const GamePreview = forwardRef<
     setGameState((prev) => ({ ...prev, isMuted: !prev.isMuted }));
   };
 
-const toggleFullscreen = () => {
-  if (!document.fullscreenElement) {
-    document.documentElement.requestFullscreen().catch(() => {});
-  } else {
-    document.exitFullscreen().catch(() => {});
-  }
-};
-
-
   const handleWin = () => {
     setFreezeTimer(true);
     if (
