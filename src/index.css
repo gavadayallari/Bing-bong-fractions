@@ -2432,3 +2432,68 @@ body,
   }
 }
 
+/* =====================================================
+   MOBILE VIEWPORT FIX
+===================================================== */
+
+/* Force hardware acceleration for smoother transitions */
+.game-preview-container {
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* Mobile specific fixes */
+@media screen and (max-width: 1024px) {
+  html, body {
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Prevent zoom on input focus */
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+  
+  /* Fix viewport issues on orientation change */
+  @media (orientation: landscape) {
+    html {
+      height: 100vh;
+      width: 100vw;
+    }
+    
+    body {
+      height: 100vh;
+      width: 100vw;
+      position: fixed;
+      overflow: hidden;
+    }
+    
+    #root {
+      height: 100vh;
+      width: 100vw;
+    }
+  }
+}
+
+/* Fullscreen specific mobile fixes */
+@media screen and (max-width: 1024px) {
+  :fullscreen {
+    width: 100vw !important;
+    height: 100vh !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    overflow: hidden !important;
+  }
+  
+  :-webkit-full-screen {
+    width: 100vw !important;
+    height: 100vh !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    overflow: hidden !important;
+  }
+}
