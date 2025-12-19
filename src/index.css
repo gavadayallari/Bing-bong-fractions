@@ -2462,7 +2462,7 @@ body,
     z-index: 9999;
     text-align: center;
     line-height: 1.1 !important;
-    gap: -0.5rem !important;
+    gap: -2.5rem !important;
   }
 
   /* -------- Right instruction text -------- */
