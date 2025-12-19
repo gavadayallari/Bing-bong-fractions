@@ -2393,8 +2393,7 @@ body,
 }
 
 /* =====================================================
-   MOBILE LANDSCAPE FULLSCREEN MODE
-   Active ONLY when fullscreen + landscape
+   MOBILE LANDSCAPE + FULLSCREEN (SAFE)
 ===================================================== */
 
 @media (max-width: 1024px) and (orientation: landscape) {
@@ -2404,47 +2403,22 @@ body,
     overflow: hidden;
   }
 
-  /* Game container */
   :fullscreen .game-preview-container {
     width: 100vw;
     height: 100vh;
-    overflow: hidden;
   }
 
-  /* Main game wrapper */
   :fullscreen .fraction-bingo-container {
     flex-direction: row !important;
     align-items: center !important;
     justify-content: center !important;
-    padding: 0.5rem !important;
-    gap: 0.5rem !important;
   }
 
-  /* Grid area */
   :fullscreen .bingo-grid-wrapper {
-    margin-top: 0 !important;
     transform: scale(0.95);
+    margin-top: 0 !important;
   }
 
-  /* Level buttons on left */
-  :fullscreen .fraction-bingo-container > div:first-child {
-    position: relative !important;
-    margin: 0 !important;
-    padding: 0.5rem !important;
-    flex-direction: column !important;
-    align-items: center !important;
-  }
-
-  /* Right-side text */
-  :fullscreen .bingo-right-text {
-    position: absolute !important;
-    top: 0.5rem !important;
-    right: 0.5rem !important;
-    left: auto !important;
-    transform: none !important;
-  }
-
-  /* Countdown */
   :fullscreen .countdown-container {
     top: 0.5rem !important;
     left: 50% !important;

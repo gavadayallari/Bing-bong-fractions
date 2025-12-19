@@ -311,22 +311,12 @@ const GamePreview = forwardRef<
 
 const toggleFullscreen = () => {
   if (!document.fullscreenElement) {
-    document.documentElement.requestFullscreen().then(() => {
-      // Mobile users ko rotate hint
-      if (window.innerWidth < 768) {
-        setTimeout(() => {
-          alert("Rotate your phone for best experience 📱↔️");
-        }, 300);
-      }
-    }).catch((err) => {
-      console.log(`Error attempting to enable fullscreen: ${err.message}`);
-    });
+    document.documentElement.requestFullscreen().catch(() => {});
   } else {
-    document.exitFullscreen().catch((err) => {
-      console.log(`Error attempting to exit fullscreen: ${err.message}`);
-    });
+    document.exitFullscreen().catch(() => {});
   }
 };
+
 
   const handleWin = () => {
     setFreezeTimer(true);
