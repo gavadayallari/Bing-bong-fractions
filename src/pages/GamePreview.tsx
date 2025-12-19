@@ -136,6 +136,49 @@ const GamePreview = forwardRef<
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
   }, [gameState.isMuted, gameState.isPlaying]);
+
+  // Handle orientation changes on mobile - optimized with minimal delays
+  useEffect(() => {
+    const handleOrientationChange = () => {
+      // Quick viewport refresh with minimal delay
+      setTimeout(() => {
+        window.dispatchEvent(new Event('resize'));
+        
+        // Quick DOM refresh
+        if (gameGridRef.current) {
+          const display = gameGridRef.current.style.display;
+          gameGridRef.current.style.display = 'none';
+          gameGridRef.current.offsetHeight; // Force reflow
+          gameGridRef.current.style.display = display || '';
+        }
+      }, 50); // Reduced from 100ms to 50ms
+    };
+
+    // Listen for orientation changes
+    window.addEventListener('orientationchange', handleOrientationChange);
+    window.addEventListener('resize', handleOrientationChange);
+    
+    // Also listen for screen orientation API changes
+    if ('screen' in window && 'orientation' in screen) {
+      const orientation = (screen as any).orientation;
+      if (orientation && typeof orientation.addEventListener === 'function') {
+        orientation.addEventListener('change', handleOrientationChange);
+      }
+    }
+
+    return () => {
+      window.removeEventListener('orientationchange', handleOrientationChange);
+      window.removeEventListener('resize', handleOrientationChange);
+      
+      if ('screen' in window && 'orientation' in screen) {
+        const orientation = (screen as any).orientation;
+        if (orientation && typeof orientation.removeEventListener === 'function') {
+          orientation.removeEventListener('change', handleOrientationChange);
+        }
+      }
+    };
+  }, []);
+
   // Report game status to parent (e.g., Flutter) for this single-level demo game
   useEffect(() => {
     if (!sendDataToParent) return;
