@@ -7,7 +7,7 @@ import {
   RotateCcw,
   VolumeX,
 } from "lucide-react";
-import { handleFullscreenToggle } from "@/utils/handleFullscreenToggle";
+import type { Dispatch, SetStateAction } from "react";
 
 type PreviewSidebarProps = {
   gameState: GameStateType;
@@ -15,6 +15,8 @@ type PreviewSidebarProps = {
   resetGame?: () => void;
   togglePause: () => void;
   toggleMute: () => void;
+  toggleFullscreen: () => void;
+  setGameState: Dispatch<SetStateAction<GameStateType>>;
 };
 
 function PreviewSidebar({
@@ -23,6 +25,8 @@ function PreviewSidebar({
   resetGame,
   togglePause,
   toggleMute,
+  toggleFullscreen,
+  setGameState,
 }: PreviewSidebarProps) {
   const { isMuted, isPlaying, hasWon } = gameState;
 
@@ -88,7 +92,7 @@ function PreviewSidebar({
       {/* ================= FULLSCREEN BUTTON ================= */}
       <div className="pointer-events-none fixed bottom-0 right-0 z-10 p-2 md:p-3 lg:p-4">
         <button
-          onClick={handleFullscreenToggle}
+          onClick={toggleFullscreen}
           title="Toggle fullscreen"
           aria-label="Toggle fullscreen"
           className="fullscreen-btn pointer-events-auto size-10 md:size-12 lg:size-14 rounded-full bg-blue-500 hover:bg-blue-600 flex items-center justify-center shadow-lg transition-colors touch-none"
