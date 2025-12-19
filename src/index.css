@@ -2456,17 +2456,13 @@ body,
   :fullscreen .countdown-container,
   :-webkit-full-screen .countdown-container {
     position: fixed !important;
-    top: 0.4rem !important;
+    top: 0.2rem !important;
     left: 65% !important;
     transform: translateX(-50%) !important;
     z-index: 9999;
     text-align: center;
-  }
-
-  /* Timer */
-  :fullscreen .countdown-container .timer,
-  :-webkit-full-screen .countdown-container .timer {
-  margin-top: 0.55rem !important;
+    line-height: 1.1 !important;
+    gap: 0.1rem !important;
   }
 
   /* -------- Right instruction text -------- */

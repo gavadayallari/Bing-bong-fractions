@@ -73,11 +73,11 @@ const CountdownTimer = ({
   return (
     <div className={`absolute top-5 left-1/2 -translate-x-1/2  w-fit countdown-container`}>
       {gameName && (
-        <div className="text-xl sm:text-xl md:text-2xl lg:text-[30px] sm:tracking-[2px] font-light text-white uppercase luckiest-guy-regular">
+        <div className="text-xl sm:text-xl md:text-2xl lg:text-[30px] sm:tracking-[2px] font-light text-white uppercase luckiest-guy-regular mb-1">
           {gameName}
         </div>
       )}
-      <div className="do-no-capture flex gap-6 mt-5 font-bold items-center justify-center text-white">
+      <div className="do-no-capture flex gap-6 mt-2 font-bold items-center justify-center text-white">
         <div className="flex items-center gap-2">
           <TimerSvg/>
 
