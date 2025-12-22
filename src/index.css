@@ -2473,7 +2473,7 @@ body,
   /* -------- Bingo grid cells -------- */
   :fullscreen .fraction-bingo-container .grid.grid-cols-5,
   :-webkit-full-screen .fraction-bingo-container .grid.grid-cols-5 {
-    gap: 0.25rem !important; /* Smaller gap between cells */
+    gap: 0.5rem !important; /* Smaller gap between cells */
     width: 100% !important;
     max-width: 400px !important; /* Limit max width */
   }
