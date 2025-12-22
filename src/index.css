@@ -2502,10 +2502,8 @@ body,
   /* -------- Level buttons smaller -------- */
   :fullscreen .fraction-bingo-container button[type="button"],
   :-webkit-full-screen .fraction-bingo-container button[type="button"] {
-     width: 4.5rem !important;   /* ⬅️ increase */
-    height: 4.5rem !important;
-    min-width: 4.5rem !important;
-    min-height: 4.5rem !important;
+    width: 4.5rem !important; /* Increased from 3rem to 4.5rem */
+    height: 4.5rem !important; /* Increased from 3rem to 4.5rem */
   }
 
   /* -------- Countdown / Title -------- */
