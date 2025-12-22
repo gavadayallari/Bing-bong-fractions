@@ -2533,8 +2533,10 @@ body,
   /* -------- Level buttons -------- */
   :fullscreen .fraction-bingo-container > div:first-child,
   :-webkit-full-screen .fraction-bingo-container > div:first-child {
-    width: 8rem !important; 
+    width: 8rem !important;
+    max-width: 5rem !important;
     height: 8rem !important;
+    max-height: 5rem !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
