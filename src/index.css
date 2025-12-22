@@ -2456,6 +2456,7 @@ body,
     gap: -0.10rem !important;
     padding: 0.5rem !important;
     margin-top: -2.5rem !important;
+    margin-left: 4rem !important;
   }
 
   /* -------- Bingo grid -------- */
@@ -2502,7 +2503,6 @@ body,
   :-webkit-full-screen .fraction-bingo-container button[type="button"] {
     width: 3rem !important; /* 48px */
     height: 3rem !important; /* 48px */
-    margin-left: 5rem !important;
   }
 
   /* -------- Countdown / Title -------- */
