@@ -2427,6 +2427,14 @@ body,
     background-size: cover;
   }
 
+    /* Timer value (00:00) */
+  :fullscreen .countdown-container span,
+  :-webkit-full-screen .countdown-container span {
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+    margin-top: 0.15rem !important;
+  }
+
   /* -------- Main game layout -------- */
   :fullscreen .fraction-bingo-container,
   :-webkit-full-screen .fraction-bingo-container {
