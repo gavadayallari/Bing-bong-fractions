@@ -2430,12 +2430,6 @@ body,
     /* BIN / BING / BINGO text */
   :fullscreen .countdown-container > div:first-child,
   :-webkit-full-screen .countdown-container > div:first-child {
-      width: 100%;                      /* full width so centering works */
-  text-align: center !important;    /* horizontal center */
-
-  display: flex;
-  justify-content: center;          /* horizontal center (safe) */
-  align-items: center;              /* vertical center */
     font-size: 1rem !important;
     font-weight: 700 !important;
     letter-spacing: 0.05em !important;
@@ -2514,7 +2508,7 @@ body,
   :-webkit-full-screen .countdown-container {
     position: fixed !important;
     top: 0.2rem !important;
-    left: 65% !important;
+    left: 50% !important;
     transform: translateX(-50%) !important;
     z-index: 9999;
     text-align: center;
