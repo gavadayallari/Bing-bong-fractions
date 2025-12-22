@@ -2502,6 +2502,7 @@ body,
   :-webkit-full-screen .fraction-bingo-container button[type="button"] {
     width: 3rem !important; /* 48px */
     height: 3rem !important; /* 48px */
+    margin-left: 5rem !important;
   }
 
   /* -------- Countdown / Title -------- */
