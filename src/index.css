@@ -2483,7 +2483,7 @@ body,
   :-webkit-full-screen .bingo-cell {
     width: 40px !important; /* Even smaller cell size for mobile landscape */
     height: 50px !important; /* Even smaller cell size for mobile landscape */
-    font-size: 0.65rem !important; /* Smaller font */
+    font-size: 0.35rem !important; /* Smaller font */
     padding: 0.2rem !important;
     min-width: 50px !important;
     min-height: 50px !important;
