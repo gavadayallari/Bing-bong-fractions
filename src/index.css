@@ -2427,6 +2427,14 @@ body,
     background-size: cover;
   }
 
+    /* BIN / BING / BINGO text */
+  :fullscreen .countdown-container > div:first-child,
+  :-webkit-full-screen .countdown-container > div:first-child {
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.05em !important;
+  }
+
     /* Timer value (00:00) */
   :fullscreen .countdown-container span,
   :-webkit-full-screen .countdown-container span {
