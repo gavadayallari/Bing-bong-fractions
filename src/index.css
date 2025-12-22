@@ -2198,21 +2198,21 @@ body,
   
   /* Number line container - adjust positioning */
   .number-line-container {
-    margin-top: 180px !important;
-    margin-bottom: 4px !important;
+    margin-top: 140px !important;
+    margin-bottom: 8px !important;
     margin-left: 1rem !important;
   }
   
   /* Number line ticks */
   .tick-responsive {
-    top: -55px;
+    top: -50px;
     width: 1.75px;
     height: 14px;
   }
   
   /* Pointer tick */
   .pointer-tick-responsive {
-    top: -55px;
+    top: -50px;
     width: 3.5px;
     height: 16px;
   }
@@ -2556,3 +2556,150 @@ body,
 }
 
 
+/* =====================================================
+   IPHONE SPECIFIC FIXES
+===================================================== */
+
+/* iPhone Safari specific fixes */
+@supports (-webkit-touch-callout: none) {
+  /* This targets iOS Safari specifically */
+  
+  .game-preview-container {
+    -webkit-overflow-scrolling: touch;
+    overflow-x: hidden;
+  }
+  
+  /* Fix iOS viewport issues */
+  html {
+    height: -webkit-fill-available;
+  }
+  
+  body {
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+  }
+  
+  /* iOS fullscreen fixes */
+  :fullscreen {
+    width: 100vw !important;
+    height: 100vh !important;
+    height: -webkit-fill-available !important;
+  }
+  
+  :-webkit-full-screen {
+    width: 100vw !important;
+    height: 100vh !important;
+    height: -webkit-fill-available !important;
+  }
+}
+
+/* iPhone X and newer with notch */
+@media screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3),
+       screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2),
+       screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3),
+       screen and (device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3),
+       screen and (device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) {
+  
+  /* Safe area adjustments for notch */
+  .game-preview-container {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  :fullscreen .game-preview-container,
+  :-webkit-full-screen .game-preview-container {
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  }
+  
+  /* Landscape mode adjustments for notch */
+  @media (orientation: landscape) {
+    :fullscreen .fraction-bingo-container,
+    :-webkit-full-screen .fraction-bingo-container {
+      margin-left: env(safe-area-inset-left) !important;
+      margin-right: env(safe-area-inset-right) !important;
+    }
+    
+    :fullscreen .countdown-container,
+    :-webkit-full-screen .countdown-container {
+      left: calc(50% + env(safe-area-inset-left) / 2) !important;
+    }
+  }
+}
+
+/* iPhone SE and older small iPhones */
+@media screen and (device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) {
+  :root {
+    --cell-size: 32px;
+    --cell-font: 0.45rem;
+    --grid-gap: 0.1rem;
+    --level-btn-size: 2.2rem;
+    --container-padding: 0.2rem;
+    --grid-scale: 0.65;
+  }
+  
+  :fullscreen .bingo-grid-wrapper,
+  :-webkit-full-screen .bingo-grid-wrapper {
+    transform: scale(0.6) !important;
+  }
+}
+
+/* Force landscape orientation hint for iOS */
+@media screen and (max-width: 768px) and (orientation: portrait) {
+  .ios-landscape-hint {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
+    font-size: 0.8rem;
+    z-index: 1000;
+    animation: fadeInOut 3s ease-in-out;
+  }
+  
+  @keyframes fadeInOut {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+  }
+}
+
+/* iOS Safari address bar compensation */
+@media screen and (max-device-width: 768px) {
+  .game-preview-container {
+    height: 100vh;
+    height: -webkit-fill-available;
+  }
+  
+  /* When in fullscreen, use full viewport */
+  :fullscreen .game-preview-container,
+  :-webkit-full-screen .game-preview-container {
+    height: 100vh !important;
+    height: 100dvh !important; /* Dynamic viewport height for modern browsers */
+  }
+}
+
+/* Prevent iOS zoom on input focus */
+@media screen and (max-device-width: 768px) {
+  input, select, textarea, button {
+    font-size: 16px !important;
+  }
+}
+
+/* iOS-specific touch improvements */
+@media screen and (max-device-width: 768px) {
+  .bingo-cell {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  
+  .fraction-bingo-container button[type="button"] {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+  }
+}
