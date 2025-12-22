@@ -2537,7 +2537,7 @@ body,
     max-width: 8rem !important;
     height: 8rem !important;
     max-height: 8rem !important;
-    transform: scale(2.1) !important; /* Reduced from 0.9 to 0.75 */
+    transform: scale(1.5) !important; /* Reduced from 0.9 to 0.75 */
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
