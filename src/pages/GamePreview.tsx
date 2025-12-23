@@ -13,13 +13,7 @@ import HintGuide from "@/components/HintGuide";
 import FractionBingo from "@/components/FractionBingo";
 import { handleFullscreenToggle } from "@/utils/handleFullscreenToggle";
 
-function isIOS() {
-  if (typeof navigator === "undefined") return false;
-  const ua = navigator.userAgent;
-  const isIOSUA = /iPad|iPhone|iPod/.test(ua);
-  const isIPadOS = navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1;
-  return isIOSUA || isIPadOS;
-}
+
 
 function isLandscape() {
   if (typeof window === "undefined") return true;
@@ -197,7 +191,7 @@ const GamePreview = forwardRef<
   }, []);
 
   useEffect(() => {
-    if (!isIOS()) return;
+
 
     const update = () => {
       setShowRotateOverlay(!isLandscape());
