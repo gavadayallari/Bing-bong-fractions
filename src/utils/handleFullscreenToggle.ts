@@ -21,12 +21,12 @@ export async function handleFullscreenToggle(target?: HTMLElement) {
       // Request fullscreen
       await element.requestFullscreen();
       
-      // On mobile devices, also try to lock orientation to portrait
+      // On mobile devices, also try to lock orientation to landscape
       if ('screen' in window && 'orientation' in screen) {
         const orientation = (screen as any).orientation;
         if (orientation && typeof orientation.lock === 'function') {
           try {
-            await orientation.lock('portrait');
+            await orientation.lock('landscape');
             
             // Quick refresh after orientation lock
             setTimeout(quickViewportRefresh, 100);
