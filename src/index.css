@@ -2533,6 +2533,8 @@ body,
     align-items: center;
     justify-content: center;
     background-size: cover;
+    overflow: hidden !important;
+    /* Override non-fullscreen scroll */
   }
 
   /* BIN / BING / BINGO text */
