@@ -442,12 +442,13 @@ const GamePreview = forwardRef<
   return (
     <div
       ref={gameGridRef}
-      className="w-screen overflow-hidden relative game-preview-container flex flex-col"
+      className="h-screen w-screen overflow-hidden relative game-preview-container"
       style={{
         backgroundImage: `url('images/BIn-Bing-bingo.png')`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
+        paddingTop: `72px`,
       }}
     >
       {showRotateOverlay && (
@@ -464,7 +465,7 @@ const GamePreview = forwardRef<
           </div>
         </div>
       )}
-      <div className="flex-1 w-full flex items-center justify-center">
+      <div className="h-full w-full flex items-center justify-center">
         <FractionBingo
           key={resetBingoKey}
           isPlaying={gameState.isPlaying}
