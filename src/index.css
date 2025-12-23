@@ -2443,7 +2443,7 @@ body,
   .game-preview-container {
     width: 100vw;
     height: 100vh;
-    padding-top: 5.5rem !important;
+    padding-top: 2rem !important;
     /* Add space for top header */
     display: flex;
     align-items: flex-start;
@@ -2476,8 +2476,6 @@ body,
     margin: 0 !important;
     transform: scale(0.9) !important;
     margin-right: 2rem !important;
-    margin-top: 1.5rem !important;
-    /* Push down to avoid overlap */
   }
 
   .fraction-bingo-container>div:first-child {
