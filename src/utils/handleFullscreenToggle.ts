@@ -11,43 +11,43 @@ function quickViewportRefresh() {
   body.style.display = display || '';
 }
 
-// Show landscape message for all mobile devices
+// Show portrait mode message for all mobile devices
 function showLandscapeMessage() {
-  // Check if in portrait mode
-  const isPortrait = window.innerHeight > window.innerWidth;
+  // Check if in landscape mode
+  const isLandscape = window.innerWidth > window.innerHeight;
   
-  if (isPortrait) {
+  if (isLandscape) {
     // Remove any existing message first
-    const existingMessage = document.getElementById('landscape-message');
+    const existingMessage = document.getElementById('portrait-message');
     if (existingMessage) {
       document.body.removeChild(existingMessage);
     }
     
     // Create and style the overlay
     const overlay = document.createElement('div');
-    overlay.id = 'landscape-message';
+    overlay.id = 'portrait-message';
     
     // Create message container
     const messageContainer = document.createElement('div');
     
     // Create icon
     const icon = document.createElement('div');
-    icon.innerHTML = '';
+    icon.innerHTML = '📱';
     
     // Create message text
     const message = document.createElement('div');
-    message.textContent = 'Please rotate your device to landscape mode for the best experience';
+    message.textContent = 'Please rotate your device to portrait mode to play';
     
     // Add styles
     const style = document.createElement('style');
     style.textContent = `
-      #landscape-message {
+      #portrait-message {
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0.9);
+        background: linear-gradient(135deg, #4a6bff 0%, #2a3f9d 100%);
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -57,23 +57,26 @@ function showLandscapeMessage() {
         text-align: center;
         padding: 20px;
         box-sizing: border-box;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       }
       
-      #landscape-message div:first-child {
-        font-size: 48px;
-        margin-bottom: 20px;
-        animation: spin 2s linear infinite;
+      #portrait-message div:first-child {
+        font-size: 64px;
+        margin-bottom: 30px;
+        animation: pulse 2s infinite;
       }
       
-      #landscape-message div:last-child {
-        font-size: 18px;
-        max-width: 300px;
+      #portrait-message div:last-child {
+        font-size: 20px;
+        font-weight: 500;
+        max-width: 280px;
         line-height: 1.5;
       }
       
-      @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
+      @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+        100% { transform: scale(1); }
       }
     `;
     
@@ -85,13 +88,15 @@ function showLandscapeMessage() {
     document.body.appendChild(overlay);
     
     // Add data attribute to style element for easy removal
-    style.setAttribute('data-landscape-style', 'true');
+    style.setAttribute('data-portrait-style', 'true');
     
-    // Function to handle orientation change
-    const handleOrientationChange = () => {
-      if (!window.matchMedia('(orientation: portrait)').matches) {
-        const messageToRemove = document.getElementById('landscape-message');
-        const styleElement = document.querySelector('style[data-landscape-style]');
+    // Function to check orientation and update UI
+    const checkOrientation = () => {
+      const isNowPortrait = window.innerHeight > window.innerWidth;
+      
+      if (isNowPortrait) {
+        const messageToRemove = document.getElementById('portrait-message');
+        const styleElement = document.querySelector('style[data-portrait-style]');
         
         if (messageToRemove && document.body.contains(messageToRemove)) {
           document.body.removeChild(messageToRemove);
@@ -102,19 +107,14 @@ function showLandscapeMessage() {
         }
         
         // Clean up event listeners
-        window.removeEventListener('orientationchange', handleOrientationChange);
-        window.removeEventListener('resize', handleResize);
+        window.removeEventListener('orientationchange', checkOrientation);
+        window.removeEventListener('resize', checkOrientation);
       }
     };
     
-    // Handle resize for devices that might not fire orientationchange
-    const handleResize = () => {
-      if (window.innerWidth > window.innerHeight) {
-        handleOrientationChange();
-      }
-    };
-    
-    window.addEventListener('resize', handleResize);
+    // Add event listeners
+    window.addEventListener('orientationchange', checkOrientation);
+    window.addEventListener('resize', checkOrientation);
   }
 }
 
