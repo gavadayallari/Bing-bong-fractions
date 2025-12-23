@@ -2439,6 +2439,63 @@ body,
 
 
 /* =====================================================
+   MOBILE LANDSCAPE (NON-FULLSCREEN)
+===================================================== */
+@media screen and (max-width: 1024px) and (orientation: landscape) {
+  .game-preview-container {
+    width: 100vw;
+    height: 100vh;
+    padding-top: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    overflow: hidden;
+  }
+
+  .countdown-container>div:first-child {
+    font-size: 1rem !important;
+    margin-bottom: -0.8rem !important;
+  }
+
+  .countdown-container span {
+    font-size: 0.75rem !important;
+    margin-top: -0.15rem !important;
+  }
+
+  .fraction-bingo-container {
+    flex-direction: row !important;
+    gap: 1rem !important;
+    margin-top: 0 !important;
+    margin-left: 0 !important;
+  }
+
+  .bingo-grid-wrapper {
+    margin: 0 !important;
+    transform: scale(0.9) !important;
+    margin-right: 2rem !important;
+  }
+
+  .fraction-bingo-container>div:first-child {
+    transform: scale(0.9) !important;
+    margin: 0 !important;
+    margin-right: 1rem !important;
+    flex-direction: column !important;
+  }
+
+  .countdown-container {
+    position: fixed !important;
+    top: 0.5rem !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    padding: 0.2rem 1rem;
+    z-index: 9999;
+  }
+}
+
+/* =====================================================
    MOBILE LANDSCAPE + FULLSCREEN (FINAL STABLE)
    Applies ONLY after screen rotation
 ===================================================== */
