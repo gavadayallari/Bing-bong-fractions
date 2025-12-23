@@ -2488,10 +2488,13 @@ body,
     top: 0.5rem !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
-    background-color: rgba(0, 0, 0, 0.2);
-    border-radius: 20px;
-    padding: 0.2rem 1rem;
     z-index: 9999;
+    text-align: center;
+    line-height: 1.2 !important;
+    gap: 0.2rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
   }
 }
 
