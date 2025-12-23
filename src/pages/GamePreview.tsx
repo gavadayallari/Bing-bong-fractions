@@ -77,9 +77,17 @@ const GamePreview = forwardRef<
       /iPad|iPhone|iPod/i.test(ua) || (platform === "MacIntel" && maxTouchPoints > 1);
     setIsIOS(detectedIOS);
 
-    const detectedMobile =
+    const detectedMobileByUA =
       /Android|iPad|iPhone|iPod/i.test(ua) || (platform === "MacIntel" && maxTouchPoints > 1);
-    setIsMobile(detectedMobile);
+
+    const hasCoarsePointer =
+      typeof window.matchMedia === "function" &&
+      window.matchMedia("(pointer: coarse)").matches;
+    const minViewport = Math.min(window.innerWidth, window.innerHeight);
+    const detectedMobileByFeatures =
+      (maxTouchPoints > 1 || hasCoarsePointer) && minViewport <= 1024;
+
+    setIsMobile(detectedMobileByUA || detectedMobileByFeatures);
   }, []);
 
   useEffect(() => {
