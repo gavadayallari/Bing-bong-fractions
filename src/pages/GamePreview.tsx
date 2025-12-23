@@ -37,6 +37,9 @@ const GamePreview = forwardRef<
     duration: 0,
     hasStarted: false,
   });
+  const [isLandscape, setIsLandscape] = useState(false);
+  const [isIOS, setIsIOS] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const [freezeTimer, setFreezeTimer] = useState(false);
   const [firstTap, setFirstTap] = useState(true);
   const [showSplashScreen, setShowSplashScreen] = useState<boolean>(true);
@@ -65,6 +68,56 @@ const GamePreview = forwardRef<
     new Audio("media/success.webm")
   );
   const clapMusicRef = useRef<HTMLAudioElement>(new Audio("media/clap.webm"));
+
+  useEffect(() => {
+    const ua = window.navigator.userAgent;
+    const platform = (window.navigator as any).platform;
+    const maxTouchPoints = (window.navigator as any).maxTouchPoints ?? 0;
+    const detectedIOS =
+      /iPad|iPhone|iPod/i.test(ua) || (platform === "MacIntel" && maxTouchPoints > 1);
+    setIsIOS(detectedIOS);
+
+    const detectedMobile =
+      /Android|iPad|iPhone|iPod/i.test(ua) || (platform === "MacIntel" && maxTouchPoints > 1);
+    setIsMobile(detectedMobile);
+  }, []);
+
+  useEffect(() => {
+    const computeLandscape = () => {
+      if (typeof window === "undefined") return false;
+      if (typeof window.matchMedia === "function") {
+        return window.matchMedia("(orientation: landscape)").matches;
+      }
+      return window.innerWidth > window.innerHeight;
+    };
+
+    const update = () => {
+      setIsLandscape(computeLandscape());
+    };
+
+    update();
+    window.addEventListener("resize", update);
+    window.addEventListener("orientationchange", update);
+
+    if ("screen" in window && "orientation" in screen) {
+      const orientation = (screen as any).orientation;
+      if (orientation && typeof orientation.addEventListener === "function") {
+        orientation.addEventListener("change", update);
+      }
+    }
+
+    return () => {
+      window.removeEventListener("resize", update);
+      window.removeEventListener("orientationchange", update);
+
+      if ("screen" in window && "orientation" in screen) {
+        const orientation = (screen as any).orientation;
+        if (orientation && typeof orientation.removeEventListener === "function") {
+          orientation.removeEventListener("change", update);
+        }
+      }
+    };
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -136,6 +189,22 @@ const GamePreview = forwardRef<
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
   }, [gameState.isMuted, gameState.isPlaying]);
+
+  useEffect(() => {
+    if (!(isMobile && isLandscape)) return;
+
+    backgroundMusicRef.current?.pause();
+    instructionsAudioRef.current?.pause();
+    uiClickMusicRef.current?.pause();
+    successMusicRef.current?.pause();
+    clapMusicRef.current?.pause();
+    levelWinRef.current?.pause();
+
+    setGameState((prev) => {
+      if (!prev.isPlaying) return prev;
+      return { ...prev, isPlaying: false };
+    });
+  }, [isLandscape, isMobile]);
 
   // Handle orientation changes on mobile - optimized with minimal delays
   useEffect(() => {
@@ -381,12 +450,24 @@ const GamePreview = forwardRef<
 
   if (showSplashScreen) {
     return (
-      <div className="flex items-center justify-center h-screen">
+      <div className="relative h-screen w-screen flex items-center justify-center">
         <Image
           src="images/eklavya.png"
           alt="eklavya - making learning accessible"
           className="w-full h-full object-contain animate-fade-in"
         />
+        {isMobile && isLandscape && (
+          <div className="absolute inset-0 z-[9999] bg-black/90 text-white flex items-center justify-center p-6">
+            <div className="max-w-md text-center">
+              <div className="text-2xl font-semibold">Please rotate to portrait</div>
+              <div className="mt-3 text-base opacity-90">
+                {isIOS
+                  ? "Sir, on iOS please keep your device in Portrait mode. Safari may not allow orientation lock."
+                  : "This game works only in Portrait mode."}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     );
   }
@@ -403,6 +484,18 @@ const GamePreview = forwardRef<
         paddingTop: `72px`,
       }}
     >
+      {isMobile && isLandscape && (
+        <div className="absolute inset-0 z-[9999] bg-black/90 text-white flex items-center justify-center p-6">
+          <div className="max-w-md text-center">
+            <div className="text-2xl font-semibold">Please rotate to portrait</div>
+            <div className="mt-3 text-base opacity-90">
+              {isIOS
+                ? "Sir, on iOS please keep your device in Portrait mode. Safari may not allow orientation lock."
+                : "This game works only in Portrait mode."}
+            </div>
+          </div>
+        </div>
+      )}
       <div ref={gameGridRef} className="h-full w-full flex items-center justify-center">
         <FractionBingo
           key={resetBingoKey}
