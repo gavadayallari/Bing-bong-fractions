@@ -2436,8 +2436,6 @@ body,
 }
 
 
-
-
 /* =====================================================
    MOBILE LANDSCAPE (NON-FULLSCREEN)
 ===================================================== */
@@ -2445,12 +2443,16 @@ body,
   .game-preview-container {
     width: 100vw;
     height: 100vh;
-    padding-top: 0 !important;
+    padding-top: 2rem !important;
+    /* Add space for top header */
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    /* Top align to allow scrolling */
     justify-content: center;
     background-size: cover;
-    overflow: hidden;
+    overflow-y: auto !important;
+    /* Enable vertical scroll */
+    -webkit-overflow-scrolling: touch;
   }
 
   .countdown-container>div:first-child {
