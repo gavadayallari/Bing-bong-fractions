@@ -13,6 +13,22 @@ import HintGuide from "@/components/HintGuide";
 import FractionBingo from "@/components/FractionBingo";
 import { handleFullscreenToggle } from "@/utils/handleFullscreenToggle";
 
+function isIOS() {
+  if (typeof navigator === "undefined") return false;
+  const ua = navigator.userAgent;
+  const isIOSUA = /iPad|iPhone|iPod/.test(ua);
+  const isIPadOS = navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1;
+  return isIOSUA || isIPadOS;
+}
+
+function isLandscape() {
+  if (typeof window === "undefined") return true;
+  if (typeof window.matchMedia === "function") {
+    return window.matchMedia("(orientation: landscape)").matches;
+  }
+  return window.innerWidth > window.innerHeight;
+}
+
 const GamePreview = forwardRef<
   RefType,
   {
@@ -41,6 +57,7 @@ const GamePreview = forwardRef<
   const [firstTap, setFirstTap] = useState(true);
   const [showSplashScreen, setShowSplashScreen] = useState<boolean>(true);
   const [floatingText, setFloatingText] = useState<string | null>(null);
+  const [showRotateOverlay, setShowRotateOverlay] = useState(false);
   const gameGridRef = useRef<HTMLDivElement | null>(null);
   const countdownRef = useRef<HTMLDivElement | null>(null);
   const [resetBingoKey, setResetBingoKey] = useState(0);
@@ -148,7 +165,7 @@ const GamePreview = forwardRef<
         if (gameGridRef.current) {
           const display = gameGridRef.current.style.display;
           gameGridRef.current.style.display = 'none';
-          gameGridRef.current.offsetHeight; // Force reflow
+          void gameGridRef.current.offsetHeight; // Force reflow
           gameGridRef.current.style.display = display || '';
         }
       }, 50); // Reduced from 100ms to 50ms
@@ -174,6 +191,37 @@ const GamePreview = forwardRef<
         const orientation = (screen as any).orientation;
         if (orientation && typeof orientation.removeEventListener === 'function') {
           orientation.removeEventListener('change', handleOrientationChange);
+        }
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isIOS()) return;
+
+    const update = () => {
+      setShowRotateOverlay(!isLandscape());
+    };
+
+    update();
+    window.addEventListener("resize", update);
+    window.addEventListener("orientationchange", update);
+
+    if ("screen" in window && "orientation" in screen) {
+      const orientation = (screen as any).orientation;
+      if (orientation && typeof orientation.addEventListener === "function") {
+        orientation.addEventListener("change", update);
+      }
+    }
+
+    return () => {
+      window.removeEventListener("resize", update);
+      window.removeEventListener("orientationchange", update);
+
+      if ("screen" in window && "orientation" in screen) {
+        const orientation = (screen as any).orientation;
+        if (orientation && typeof orientation.removeEventListener === "function") {
+          orientation.removeEventListener("change", update);
         }
       }
     };
@@ -403,7 +451,21 @@ const GamePreview = forwardRef<
         paddingTop: `72px`,
       }}
     >
-      <div ref={gameGridRef} className="h-full w-full flex items-center justify-center">
+      {showRotateOverlay && (
+        <div
+          className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 px-6"
+          role="alert"
+          aria-live="assertive"
+        >
+          <div className="max-w-md text-center text-white">
+            <div className="text-xl font-semibold">Rotate your device</div>
+            <div className="mt-2 text-sm opacity-90">
+              Please rotate to landscape for the best experience.
+            </div>
+          </div>
+        </div>
+      )}
+      <div className="h-full w-full flex items-center justify-center">
         <FractionBingo
           key={resetBingoKey}
           isPlaying={gameState.isPlaying}

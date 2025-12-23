@@ -20,7 +20,6 @@ type HintGuideProps = {
 };
 
 const HintGuide = ({
-  gameState: _gameState,
   setGameState,
   play,
   hint,

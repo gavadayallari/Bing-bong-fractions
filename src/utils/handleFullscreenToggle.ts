@@ -7,8 +7,16 @@ function quickViewportRefresh() {
   const body = document.body;
   const display = body.style.display;
   body.style.display = 'none';
-  body.offsetHeight; // Force reflow
+  void body.offsetHeight; // Force reflow
   body.style.display = display || '';
+}
+
+function isIOS() {
+  if (typeof navigator === "undefined") return false;
+  const ua = navigator.userAgent;
+  const isIOSUA = /iPad|iPhone|iPod/.test(ua);
+  const isIPadOS = navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1;
+  return isIOSUA || isIPadOS;
 }
 
 export async function handleFullscreenToggle(target?: HTMLElement) {
@@ -22,7 +30,7 @@ export async function handleFullscreenToggle(target?: HTMLElement) {
       await element.requestFullscreen();
       
       // On mobile devices, also try to lock orientation to landscape
-      if ('screen' in window && 'orientation' in screen) {
+      if (!isIOS() && 'screen' in window && 'orientation' in screen) {
         const orientation = (screen as any).orientation;
         if (orientation && typeof orientation.lock === 'function') {
           try {
@@ -45,7 +53,7 @@ export async function handleFullscreenToggle(target?: HTMLElement) {
       await document.exitFullscreen();
       
       // Unlock orientation when exiting fullscreen
-      if ('screen' in window && 'orientation' in screen) {
+      if (!isIOS() && 'screen' in window && 'orientation' in screen) {
         const orientation = (screen as any).orientation;
         if (orientation && typeof orientation.unlock === 'function') {
           try {
