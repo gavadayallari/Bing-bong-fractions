@@ -11,48 +11,102 @@ function quickViewportRefresh() {
   body.style.display = display || '';
 }
 
-// Show landscape message for iPhone users
+// Show landscape message for mobile devices
 function showLandscapeMessage() {
-  // Check if iOS device
-  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
-  
-  if (!isIOS) return;
-  
   // Check if in portrait mode
   const isPortrait = window.innerHeight > window.innerWidth;
   
   if (isPortrait) {
-    // Create message element if it doesn't exist
-    let message = document.getElementById('landscape-message');
+    // Remove any existing message first
+    const existingMessage = document.getElementById('landscape-message');
+    if (existingMessage) {
+      document.body.removeChild(existingMessage);
+    }
     
-    if (!message) {
-      message = document.createElement('div');
-      message.id = 'landscape-message';
-      message.innerHTML = '🔁 Rotate your device to landscape for the best experience';
-      message.style.position = 'fixed';
-      message.style.top = '0';
-      message.style.left = '0';
-      message.style.width = '100%';
-      message.style.padding = '15px';
-      message.style.background = 'rgba(0, 0, 0, 0.8)';
-      message.style.color = 'white';
-      message.style.textAlign = 'center';
-      message.style.zIndex = '9999';
-      message.style.fontSize = '16px';
-      document.body.appendChild(message);
-      
-      // Add orientation change listener to remove message when landscape
-      const handleOrientationChange = () => {
-        if (!window.matchMedia('(orientation: portrait)').matches) {
-          if (message && document.body.contains(message)) {
-            document.body.removeChild(message);
-            window.removeEventListener('orientationchange', handleOrientationChange);
+    // Create message element
+    const message = document.createElement('div');
+    message.id = 'landscape-message';
+    message.innerHTML = '� Rotate your device to landscape for the best experience';
+    
+    // Style the message
+    Object.assign(message.style, {
+      position: 'fixed',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      width: '80%',
+      maxWidth: '400px',
+      padding: '20px',
+      background: 'rgba(0, 0, 0, 0.85)',
+      color: 'white',
+      textAlign: 'center',
+      borderRadius: '10px',
+      zIndex: '9999',
+      fontSize: '18px',
+      boxShadow: '0 4px 12px rgba(0,0,0,0.25)',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      gap: '15px'
+    });
+    
+    // Add icon
+    const icon = document.createElement('div');
+    icon.innerHTML = '🔄';
+    icon.style.fontSize = '40px';
+    icon.style.animation = 'spin 2s linear infinite';
+    
+    // Add text
+    const text = document.createElement('div');
+    text.textContent = 'Rotate your device to landscape for the best experience';
+    
+    // Add styles for animation
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    `;
+    document.head.appendChild(style);
+    
+    // Append elements
+    message.appendChild(icon);
+    message.appendChild(text);
+    document.body.appendChild(message);
+    
+    // Add orientation change listener to remove message when landscape
+    const handleOrientationChange = () => {
+      if (!window.matchMedia('(orientation: portrait)').matches) {
+        const messageToRemove = document.getElementById('landscape-message');
+        if (messageToRemove && document.body.contains(messageToRemove)) {
+          document.body.removeChild(messageToRemove);
+          window.removeEventListener('orientationchange', handleOrientationChange);
+          
+          // Also remove the animation style
+          const styleElement = document.querySelector('style[data-landscape-style]');
+          if (styleElement) {
+            document.head.removeChild(styleElement);
           }
         }
-      };
-      
-      window.addEventListener('orientationchange', handleOrientationChange);
-    }
+      }
+    };
+    
+    // Add data attribute to style element for easy removal
+    style.setAttribute('data-landscape-style', 'true');
+    
+    // Add event listener for orientation change
+    window.addEventListener('orientationchange', handleOrientationChange);
+    
+    // Also check on window resize (for devices that don't fire orientationchange)
+    const handleResize = () => {
+      if (window.innerWidth > window.innerHeight) {
+        handleOrientationChange();
+        window.removeEventListener('resize', handleResize);
+      }
+    };
+    
+    window.addEventListener('resize', handleResize);
   }
 }
 
