@@ -139,7 +139,82 @@ const GamePreview = forwardRef<
 
   // Handle orientation changes on mobile - optimized with minimal delays
   useEffect(() => {
+    // Detect if device is iPhone/iOS
+    const isIOS = () => {
+      return /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+             (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    };
+
+    // Show portrait message for iPhone in landscape
+    const showiOSPortraitMessage = () => {
+      const existingMessage = document.getElementById('ios-portrait-message');
+      if (existingMessage) return;
+      
+      const message = document.createElement('div');
+      message.id = 'ios-portrait-message';
+      message.innerHTML = `
+        <div style="
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100vw;
+          height: 100vh;
+          background: rgba(0, 0, 0, 0.95);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          z-index: 99999;
+          color: white;
+          font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+          text-align: center;
+          padding: 2rem;
+        ">
+          <div style="
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            animation: bounce 1s infinite;
+          ">📱</div>
+          <h2 style="font-size: 1.8rem; margin-bottom: 1rem; font-weight: 600;">Please Use Portrait Mode</h2>
+          <p style="font-size: 1.1rem; opacity: 0.9; line-height: 1.5; max-width: 300px;">
+            This game is designed for portrait orientation on iPhone. Please rotate your device back to portrait mode.
+          </p>
+          <div style="
+            margin-top: 2rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+          ">
+            <p style="font-size: 0.9rem; opacity: 0.8;">
+              🔄 Rotate your phone to portrait<br>
+              📱 Hold vertically for best experience
+            </p>
+          </div>
+        </div>
+        <style>
+          @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+          }
+        </style>
+      `;
+      
+      document.body.appendChild(message);
+    };
+
     const handleOrientationChange = () => {
+      // Check if iPhone is in landscape mode
+      if (isIOS() && (window.orientation === 90 || window.orientation === -90)) {
+        // iPhone in landscape - show portrait message
+        showiOSPortraitMessage();
+      } else {
+        // Remove portrait message if exists
+        const message = document.getElementById('ios-portrait-message');
+        if (message) message.remove();
+      }
+
       // Quick viewport refresh with minimal delay
       setTimeout(() => {
         window.dispatchEvent(new Event('resize'));
@@ -151,8 +226,11 @@ const GamePreview = forwardRef<
           gameGridRef.current.offsetHeight; // Force reflow
           gameGridRef.current.style.display = display || '';
         }
-      }, 50); // Reduced from 100ms to 50ms
+      }, 50);
     };
+
+    // Initial check on component mount
+    handleOrientationChange();
 
     // Listen for orientation changes
     window.addEventListener('orientationchange', handleOrientationChange);
@@ -167,6 +245,10 @@ const GamePreview = forwardRef<
     }
 
     return () => {
+      // Clean up message on unmount
+      const message = document.getElementById('ios-portrait-message');
+      if (message) message.remove();
+
       window.removeEventListener('orientationchange', handleOrientationChange);
       window.removeEventListener('resize', handleOrientationChange);
       

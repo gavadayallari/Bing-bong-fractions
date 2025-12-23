@@ -17,61 +17,26 @@ function isIOS() {
          (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 }
 
-// iPhone-specific orientation handling
-function handleiOSOrientation() {
-  if (!isIOS()) return;
-  
-  // Force iOS to show rotation prompt
-  const meta = document.querySelector('meta[name="viewport"]') as HTMLMetaElement;
-  if (meta) {
-    const originalContent = meta.content;
-    
-    // Temporarily change viewport to trigger orientation
-    meta.content = 'width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover';
-    
-    // Add iOS-specific meta tags if not present
-    if (!document.querySelector('meta[name="apple-mobile-web-app-capable"]')) {
-      const appleMeta = document.createElement('meta');
-      appleMeta.name = 'apple-mobile-web-app-capable';
-      appleMeta.content = 'yes';
-      document.head.appendChild(appleMeta);
-    }
-    
-    if (!document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]')) {
-      const statusMeta = document.createElement('meta');
-      statusMeta.name = 'apple-mobile-web-app-status-bar-style';
-      statusMeta.content = 'black-translucent';
-      document.head.appendChild(statusMeta);
-    }
-    
-    // Force reflow
-    setTimeout(() => {
-      meta.content = originalContent;
-      quickViewportRefresh();
-    }, 100);
-  }
-  
-  // Show iOS rotation instruction
-  showRotationPrompt();
+// Detect if device is Android
+function isAndroid() {
+  return /Android/.test(navigator.userAgent);
 }
 
-// Show rotation instruction for iOS users
-function showRotationPrompt() {
-  if (!isIOS()) return;
+// Show portrait-only message for iPhone users
+function showiOSPortraitMessage() {
+  const existingMessage = document.getElementById('ios-portrait-message');
+  if (existingMessage) return;
   
-  const existingPrompt = document.getElementById('ios-rotation-prompt');
-  if (existingPrompt) return;
-  
-  const prompt = document.createElement('div');
-  prompt.id = 'ios-rotation-prompt';
-  prompt.innerHTML = `
+  const message = document.createElement('div');
+  message.id = 'ios-portrait-message';
+  message.innerHTML = `
     <div style="
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(0, 0, 0, 0.9);
+      background: rgba(0, 0, 0, 0.95);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -83,49 +48,47 @@ function showRotationPrompt() {
       padding: 2rem;
     ">
       <div style="
-        font-size: 3rem;
-        margin-bottom: 1rem;
-        animation: rotate 2s infinite linear;
+        font-size: 4rem;
+        margin-bottom: 1.5rem;
+        animation: bounce 1s infinite;
       ">📱</div>
-      <h2 style="font-size: 1.5rem; margin-bottom: 1rem;">Please Rotate Your Device</h2>
-      <p style="font-size: 1rem; opacity: 0.8;">Turn your phone to landscape mode for the best gaming experience</p>
-      <button onclick="this.parentElement.parentElement.remove()" style="
+      <h2 style="font-size: 1.8rem; margin-bottom: 1rem; font-weight: 600;">Please Use Portrait Mode</h2>
+      <p style="font-size: 1.1rem; opacity: 0.9; line-height: 1.5; max-width: 300px;">
+        This game is designed for portrait orientation on iPhone. Please rotate your device back to portrait mode.
+      </p>
+      <div style="
         margin-top: 2rem;
-        padding: 0.75rem 1.5rem;
-        background: #007AFF;
-        color: white;
-        border: none;
-        border-radius: 0.5rem;
-        font-size: 1rem;
-        cursor: pointer;
-      ">Continue Anyway</button>
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 1rem;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      ">
+        <p style="font-size: 0.9rem; opacity: 0.8;">
+          🔄 Rotate your phone to portrait<br>
+          📱 Hold vertically for best experience
+        </p>
+      </div>
     </div>
     <style>
-      @keyframes rotate {
-        from { transform: rotate(0deg); }
-        to { transform: rotate(90deg); }
+      @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+        40% { transform: translateY(-10px); }
+        60% { transform: translateY(-5px); }
       }
     </style>
   `;
   
-  document.body.appendChild(prompt);
+  document.body.appendChild(message);
   
-  // Auto-remove when orientation changes to landscape
+  // Auto-remove when orientation changes to portrait
   const checkOrientation = () => {
-    if (window.orientation === 90 || window.orientation === -90) {
-      prompt.remove();
+    if (window.orientation === 0 || window.orientation === 180) {
+      message.remove();
       window.removeEventListener('orientationchange', checkOrientation);
     }
   };
   
   window.addEventListener('orientationchange', checkOrientation);
-  
-  // Auto-remove after 10 seconds
-  setTimeout(() => {
-    if (document.getElementById('ios-rotation-prompt')) {
-      prompt.remove();
-    }
-  }, 10000);
 }
 
 export async function handleFullscreenToggle(target?: HTMLElement) {
@@ -138,11 +101,28 @@ export async function handleFullscreenToggle(target?: HTMLElement) {
       // Request fullscreen
       await element.requestFullscreen();
       
-      // Special handling for iOS devices
+      // Different behavior for iOS vs Android
       if (isIOS()) {
-        handleiOSOrientation();
+        // iPhone: Keep in portrait, don't rotate
+        console.log('iPhone detected: Staying in portrait mode');
+        // No orientation lock for iOS - let it stay in current orientation
+        
+      } else if (isAndroid()) {
+        // Android: Try to rotate to landscape
+        console.log('Android detected: Attempting landscape rotation');
+        if ('screen' in window && 'orientation' in screen) {
+          const orientation = (screen as any).orientation;
+          if (orientation && typeof orientation.lock === 'function') {
+            try {
+              await orientation.lock('landscape');
+              setTimeout(quickViewportRefresh, 100);
+            } catch (orientationError) {
+              console.log('Could not lock orientation:', orientationError);
+            }
+          }
+        }
       } else {
-        // Standard orientation lock for other devices
+        // Other devices: Try landscape
         if ('screen' in window && 'orientation' in screen) {
           const orientation = (screen as any).orientation;
           if (orientation && typeof orientation.lock === 'function') {
@@ -163,11 +143,11 @@ export async function handleFullscreenToggle(target?: HTMLElement) {
       // Exit fullscreen
       await document.exitFullscreen();
       
-      // Remove iOS prompt if exists
-      const prompt = document.getElementById('ios-rotation-prompt');
-      if (prompt) prompt.remove();
+      // Remove iOS message if exists
+      const message = document.getElementById('ios-portrait-message');
+      if (message) message.remove();
       
-      // Standard orientation unlock for non-iOS devices
+      // Unlock orientation for non-iOS devices
       if (!isIOS() && 'screen' in window && 'orientation' in screen) {
         const orientation = (screen as any).orientation;
         if (orientation && typeof orientation.unlock === 'function') {
