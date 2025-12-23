@@ -65,7 +65,7 @@ const GamePreview = forwardRef<
         : "media/instructions.webm"
     )
   );
-  const levelWinRef=useRef<HTMLAudioElement>(
+  const levelWinRef = useRef<HTMLAudioElement>(
     new Audio("media/level-win.webm")
   );
 
@@ -154,7 +154,7 @@ const GamePreview = forwardRef<
       // Quick viewport refresh with minimal delay
       setTimeout(() => {
         window.dispatchEvent(new Event('resize'));
-        
+
         // Quick DOM refresh
         if (gameGridRef.current) {
           const display = gameGridRef.current.style.display;
@@ -168,7 +168,7 @@ const GamePreview = forwardRef<
     // Listen for orientation changes
     window.addEventListener('orientationchange', handleOrientationChange);
     window.addEventListener('resize', handleOrientationChange);
-    
+
     // Also listen for screen orientation API changes
     if ('screen' in window && 'orientation' in screen) {
       const orientation = (screen as any).orientation;
@@ -180,7 +180,7 @@ const GamePreview = forwardRef<
     return () => {
       window.removeEventListener('orientationchange', handleOrientationChange);
       window.removeEventListener('resize', handleOrientationChange);
-      
+
       if ('screen' in window && 'orientation' in screen) {
         const orientation = (screen as any).orientation;
         if (orientation && typeof orientation.removeEventListener === 'function') {
@@ -447,14 +447,19 @@ const GamePreview = forwardRef<
     >
       {showRotateOverlay && (
         <div
-          className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 px-6"
+          className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/95 px-6 backdrop-blur-sm transition-all duration-300"
           role="alert"
           aria-live="assertive"
         >
-          <div className="max-w-md text-center text-white">
-            <div className="text-xl font-semibold">Rotate your device</div>
-            <div className="mt-2 text-sm opacity-90">
-              Please rotate to landscape for the best experience.
+          <div className="flex flex-col items-center justify-center max-w-md text-center text-white space-y-8 animate-fade-in">
+            <div className="relative w-24 h-40 border-4 border-gray-400 rounded-2xl animate-phone-rotate flex items-center justify-center bg-gray-800/50 shadow-2xl">
+              <div className="w-16 h-24 border-2 border-gray-600 rounded-lg bg-gray-900/50"></div>
+            </div>
+            <div className="space-y-3">
+              <h2 className="text-3xl font-bold tracking-wide">Rotate Device</h2>
+              <p className="text-base text-gray-300 max-w-[280px] mx-auto leading-relaxed">
+                Please rotate your device to landscape for the best experience.
+              </p>
             </div>
           </div>
         </div>
@@ -484,12 +489,12 @@ const GamePreview = forwardRef<
         />
       </div>
       <PreviewSidebar
-      resetGame={handleResetGame}
-      showRestartButton={config?.showRestartButton ?? true}
-      gameState={gameState}
-      togglePause={togglePause}
-      toggleMute={toggleMute}
-      toggleFullscreen={() => handleFullscreenToggle(gameGridRef.current ?? undefined)}
+        resetGame={handleResetGame}
+        showRestartButton={config?.showRestartButton ?? true}
+        gameState={gameState}
+        togglePause={togglePause}
+        toggleMute={toggleMute}
+        toggleFullscreen={() => handleFullscreenToggle(gameGridRef.current ?? undefined)}
       />
 
       <ReplayScreen
