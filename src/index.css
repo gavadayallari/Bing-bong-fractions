@@ -2456,15 +2456,18 @@ body,
     /* Allow growth */
     height: auto;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    /* 🔼 Start from top so we scroll DOWN */
     justify-content: center;
     background-size: cover;
     overflow-y: auto;
     /* Enable scroll here too if needed */
+    padding-top: 1rem;
+    /* Safety gap from top edge */
   }
 
   .fraction-bingo-container {
-    margin-top: -4.5rem;
+    margin-top: -3.3rem;
     /* 🔼 top gap kam */
     transform: scale(0.59);
     /* optional: thoda compact */
