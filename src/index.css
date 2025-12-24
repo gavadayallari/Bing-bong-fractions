@@ -2435,241 +2435,79 @@ body,
   }
 }
 
-
 /* =====================================================
-   MOBILE LANDSCAPE (NON-FULLSCREEN)
+   MOBILE LANDSCAPE – BASE (STABLE)
 ===================================================== */
 @media screen and (max-width: 1024px) and (orientation: landscape) {
+
+  html,
+  body,
+  #root {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+  }
+
   .game-preview-container {
     width: 100vw;
     height: 100vh;
-    padding-top: 2rem !important;
-    /* Add space for top header */
     display: flex;
-    align-items: flex-start;
-    /* Top align to allow scrolling */
+    align-items: center;
     justify-content: center;
     background-size: cover;
-    overflow-y: auto !important;
-    /* Enable vertical scroll */
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .countdown-container>div:first-child {
-    font-size: 1rem !important;
-    margin-bottom: -0.8rem !important;
-  }
-
-  .countdown-container span {
-    font-size: 0.75rem !important;
-    margin-top: -0.15rem !important;
+    overflow: hidden;
   }
 
   .fraction-bingo-container {
-    flex-direction: row !important;
-    gap: 1rem !important;
-    margin-top: 0 !important;
-    margin-left: 0 !important;
+    margin-top: -.5rem;
+    /* 🔼 top gap kam */
+    transform: scale(0.55);
+    /* optional: thoda compact */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 0.5rem;
   }
 
   .bingo-grid-wrapper {
-    margin: 0 !important;
-    transform: scale(0.9) !important;
-    margin-right: 2rem !important;
-  }
-
-  .fraction-bingo-container>div:first-child {
-    transform: scale(0.9) !important;
-    margin: 0 !important;
-    margin-right: 1rem !important;
-    flex-direction: column !important;
+    transform: scale(0.9);
+    margin: 0;
   }
 
   .countdown-container {
-    position: fixed !important;
-    top: 0.5rem !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
+    position: fixed;
+    top: 0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 9999;
     text-align: center;
-    line-height: 1.2 !important;
-    gap: 0.2rem !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
   }
 }
 
 /* =====================================================
-   MOBILE LANDSCAPE + FULLSCREEN (FINAL STABLE)
-   Applies ONLY after screen rotation
+   MOBILE LANDSCAPE + FULLSCREEN (SAFE)
 ===================================================== */
-
 @media screen and (max-width: 1024px) and (orientation: landscape) {
 
-  /* -------- Fullscreen base -------- */
-  :fullscreen,
-  :-webkit-full-screen {
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-    background: black;
-  }
-
-  :fullscreen body,
-  :-webkit-full-screen body {
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-  }
-
-  /* -------- Game root -------- */
   :fullscreen .game-preview-container,
   :-webkit-full-screen .game-preview-container {
-    width: 50vw;
-    height: 50vh;
-    padding-top: 0 !important;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-size: cover;
-    overflow: hidden !important;
-    /* Override non-fullscreen scroll */
+    width: 100vw;
+    height: 100vh;
   }
 
-  /* BIN / BING / BINGO text */
-  :fullscreen .countdown-container>div:first-child,
-  :-webkit-full-screen .countdown-container>div:first-child {
-    font-size: 1rem !important;
-    font-weight: 700 !important;
-    letter-spacing: 0.05em !important;
-    margin-bottom: -0.8rem !important;
-  }
-
-  /* Timer value (00:00) */
-  :fullscreen .countdown-container span,
-  :-webkit-full-screen .countdown-container span {
-    font-size: 0.75rem !important;
-    font-weight: 600 !important;
-    margin-top: -0.15rem !important;
-  }
-
-  /* -------- Main game layout -------- */
   :fullscreen .fraction-bingo-container,
   :-webkit-full-screen .fraction-bingo-container {
     width: 100%;
     height: 100%;
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: -0.10rem !important;
-    padding: 0.5rem !important;
-    margin-top: 0.8rem !important;
-    margin-left: 4rem !important;
+    padding: 0.5rem;
   }
 
-  /* -------- Bingo grid -------- */
   :fullscreen .bingo-grid-wrapper,
   :-webkit-full-screen .bingo-grid-wrapper {
-    margin: 0 !important;
-    transform: scale(1.1) !important;
-    /* Reduced from 0.9 to 0.75 */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1rem !important;
-    margin-top: -3.5rem !important;
-    margin-left: 4rem !important;
-  }
-
-  /* -------- Bingo grid cells -------- */
-  :fullscreen .fraction-bingo-container .grid.grid-cols-5,
-  :-webkit-full-screen .fraction-bingo-container .grid.grid-cols-5 {
-    gap: 0rem !important;
-    /* Smaller gap between cells */
-    width: 100% !important;
-    max-width: 400px !important;
-    /* Limit max width */
-  }
-
-  /* -------- Individual bingo cells -------- */
-  :fullscreen .bingo-cell,
-  :-webkit-full-screen .bingo-cell {
-    width: 38px !important;
-    /* Even smaller cell size for mobile landscape */
-    height: 50px !important;
-    /* Even smaller cell size for mobile landscape */
-    font-size: 0.25rem !important;
-    /* Smaller font */
-    padding: 0.2rem !important;
-    min-width: 50px !important;
-    min-height: 50px !important;
-    margin-top: 0.15rem !important;
-  }
-
-  /* -------- Bingo grid container adjustments -------- */
-  :fullscreen .fraction-bingo-container,
-  :-webkit-full-screen .fraction-bingo-container {
-    padding: 0.25rem !important;
-    /* Reduce padding */
-    gap: 0.5rem !important;
-    /* Smaller gap */
-  }
-
-  /* -------- Level buttons smaller -------- */
-  :fullscreen .fraction-bingo-container button[type="button"],
-  :-webkit-full-screen .fraction-bingo-container button[type="button"] {
-    width: 3rem !important;
-    height: 3rem !important;
-  }
-
-  /* -------- Countdown / Title -------- */
-  :fullscreen .countdown-container,
-  :-webkit-full-screen .countdown-container {
-    position: fixed !important;
-    top: 0.2rem !important;
-    left: 60% !important;
-    transform: translateX(-50%) !important;
-    z-index: 9999;
-    text-align: center;
-    line-height: 1.1 !important;
-    gap: 0rem !important;
-  }
-
-  /* -------- Right instruction text -------- */
-  :fullscreen .bingo-right-text,
-  :-webkit-full-screen .bingo-right-text {
-    position: absolute !important;
-    right: 0.75rem !important;
-    top: 50% !important;
-    transform: translateY(-50%) !important;
-    width: auto;
-    text-align: center;
-  }
-
-  /* -------- Level buttons -------- */
-  :fullscreen .fraction-bingo-container>div:first-child,
-  :-webkit-full-screen .fraction-bingo-container>div:first-child {
-    width: 8rem !important;
-    max-width: 8rem !important;
-    height: 8rem !important;
-    max-height: 8rem !important;
-    transform: scale(1.3) !important;
-    /* Reduced from 0.9 to 0.75 */
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: 0.45rem !important;
-    margin: 0 !important;
-    margin-top: 5rem !important;
-    margin-left: -4rem !important;
-  }
-
-  /* -------- Prevent accidental scrolling -------- */
-  * {
-    overscroll-behavior: none;
-    -webkit-overflow-scrolling: auto;
+    transform: scale(1);
   }
 }
