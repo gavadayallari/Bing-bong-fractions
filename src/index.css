@@ -2445,21 +2445,26 @@ body,
   #root {
     width: 100vw;
     height: 100vh;
-    overflow: hidden;
+    overflow-y: auto;
+    /* Allow vertical scroll */
+    -webkit-overflow-scrolling: touch;
   }
 
   .game-preview-container {
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
+    /* Allow growth */
+    height: auto;
     display: flex;
     align-items: center;
     justify-content: center;
     background-size: cover;
-    overflow: hidden;
+    overflow-y: auto;
+    /* Enable scroll here too if needed */
   }
 
   .fraction-bingo-container {
-    margin-top: -1rem;
+    margin-top: -4.5rem;
     /* 🔼 top gap kam */
     transform: scale(0.59);
     /* optional: thoda compact */
