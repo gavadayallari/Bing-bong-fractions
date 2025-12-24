@@ -2445,29 +2445,24 @@ body,
   #root {
     width: 100vw;
     height: 100vh;
-    overflow-y: auto;
-    /* Allow vertical scroll */
-    -webkit-overflow-scrolling: touch;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    position: fixed;
+    inset: 0;
   }
 
   .game-preview-container {
     width: 100vw;
-    min-height: 100vh;
-    /* Allow growth */
-    height: auto;
+    height: 100vh;
     display: flex;
-    align-items: flex-start;
-    /* 🔼 Start from top so we scroll DOWN */
+    align-items: center;
     justify-content: center;
-    background-size: cover;
-    overflow-y: auto;
-    /* Enable scroll here too if needed */
-    padding-top: 1rem;
-    /* Safety gap from top edge */
+    overflow: hidden;
   }
 
   .fraction-bingo-container {
-    margin-top: -3.3rem;
+    margin-top: -1rem;
     /* 🔼 top gap kam */
     transform: scale(0.59);
     /* optional: thoda compact */
@@ -2517,6 +2512,7 @@ body,
   .fraction-bingo-container>div:first-child {
     margin-top: 0rem !important;
     /* 🔼 Gap reduced */
+    margin-left: -3rem !important;
   }
 }
 
