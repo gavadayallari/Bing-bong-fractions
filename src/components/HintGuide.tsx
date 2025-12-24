@@ -87,33 +87,32 @@ const HintGuide = ({
           </div>
           {/* Only this content area scrolls; footer stays visible */}
           <div
-            className={`flex-1 ${
-              mode === "how" ? "border-y" : ""
-            } overflow-y-scroll overflow-x-hidden custom-scroll p-2`}
+            className={`flex-1 ${mode === "how" ? "border-y" : ""
+              } overflow-y-scroll overflow-x-hidden custom-scroll p-2`}
           >
             {mode === "how" ? (
               <ul className="text-left inline-block mx-auto text-base text-gray-700 space-y-3 leading-relaxed">
                 <li className="flex items-start gap-2">
                   <span className="shrink-0 w-6 text-center">🔢</span>
                   <span>
-                    <b>Look</b> at the numbered dots.
+                    Follow the numbers
                   </span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="shrink-0 w-6 text-center">✍️</span>
                   <span>
-                    <b>Connect</b> them in order — 1, 2, 3, and so on.
+                    Connect dots in order
                   </span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="shrink-0 w-6 text-center">🔄 </span>
                   <span>
-                    When you reach the last dot, join it back to <b>1</b>.
+                    Join last dot to <b>1</b>.
                   </span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="shrink-0 w-6 text-center">🎉</span>
-                  <span>Connect all the dots to complete the picture!</span>
+                  <span>Complete the picture to win!</span>
                 </li>
               </ul>
             ) : (
